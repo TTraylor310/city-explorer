@@ -6,6 +6,7 @@ class Header extends React.Component{
     return(
       <header>
         <h1>Location by demand. You're call:</h1>
+        <h3>Explore the city!</h3>
       </header>
     )
   };
