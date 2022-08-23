@@ -7,7 +7,7 @@ class Header extends React.Component{
       <header>
         <h1>Location by demand. You're call:</h1>
         <h3>Explore the city!</h3>
-        <p>Enter any city name and get the Lat and Long</p>
+        <p>Enter any city name:</p>
       </header>
     )
   };
