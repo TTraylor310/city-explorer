@@ -24,6 +24,7 @@ Also the website will return a few days worth of weather.
   
 * Lab06 - Jun and Daniel S.
   * ![Picture](./public/img/lab06_sketch.png)
+* Lab07 - Armen
   * ![Picture](./public/img/lab07_sketch.png)
 
 Name of feature: City Name, Long and Lat data
@@ -37,6 +38,18 @@ Estimate of time needed to complete: 90 min
 Start time: xxx
 Finish time: xxx
 Actual time needed to complete: 180 min
+
+Name of feature: Weather data to populate from backend
+Estimate of time needed to complete: 2hr
+Start time: 1500
+Finish time: 2000
+Actual time needed to complete: 5 hours
+
+<!-- Name of feature: 
+Estimate of time needed to complete: 
+Start time: 
+Finish time: 
+Actual time needed to complete:  -->
 
 <!-- Name of feature: 
 Estimate of time needed to complete: 
