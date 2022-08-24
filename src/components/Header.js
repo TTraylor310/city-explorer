@@ -1,14 +1,15 @@
 import React from 'react';
+import '../css/style.css'
 
 class Header extends React.Component{
 
   render (){
     return(
-      <header>
-        <h1>Location by demand. You're call:</h1>
-        <h3>Explore the city!</h3>
-        <p>Enter any city name:</p>
-      </header>
+      <>
+        <header className="header1">
+          <h1>Welcome to Location by demand!</h1>
+        </header>
+      </>
     )
   };
 

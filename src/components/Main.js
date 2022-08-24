@@ -1,17 +1,23 @@
 import React from 'react';
 import axios from 'axios';
-// import Alert from 'react-bootstrap/Alert';
+import Alert from 'react-bootstrap/Alert';
+import '../css/style.css';
 
 
 class Main extends React.Component{
+
   constructor (props) {
     super(props);
     this.state = {
       city: '',
       cityData: [],
       mapData:[],
+      error: false,
+      errorMessage: '',
+      showData: false,
     }
   }
+
 
 
   handleInput = (e) => {
@@ -26,84 +32,75 @@ class Main extends React.Component{
     e.preventDefault();
 
     try{
-
-      let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+      let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
       let cityData = await axios.get(cityurl);
-      
-      let mapurl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=47.6038321,-122.3300624&zoom=9&size=400x400&format=jpeg`
-      // let mapData = await axios.get(mapurl);
-  
+
       this.setState({
         cityData: cityData.data,
-        mapData: mapurl,
+        // mapData: mapURL,
         error: false,
         errorMessage: '',
+        showData: true,
       })
 
     }catch(error){
-
       this.setState({
         error: true,
         errorMessage: `Error: Unable to geocode.`
       })
 
     }
-
   }
-
-
-
-
+  
+  
   render () {
-
-    let nameData = this.state.cityData.map( (val, idx) => {
-      return <p key={idx}>Name: {val.display_name}</p>
-    })
-    let nameData2 = nameData[0];
-    let locDataDone = this.state.cityData.map( (val, idx) => {
-      return <li key={idx}>Latitude: {val.lat}; Longitude: {val.lon}</li>
-    })
-    let locDataDone2 = locDataDone[0];
-
-    let imageDisplay = this.state.mapData.map( val => {
-      return <img src={val} alt="testing">Test Location</img>
-    })
+    let nameName = this.state.cityData.map (val => val.display_name);
+    let nameLat = this.state.cityData.map (val => val.lat);
+    let nameLon = this.state.cityData.map (val => val.lon);
 
     return(
       <>
-        <main>
-          <form onSubmit={this.getCityData}>
+        <main className="main1">
+          {
+          !this.state.showData &&
+          <p className="question1">Enter any city name?</p>
+          }
+          <form onSubmit={this.getCityData} className="form1">
             <label>
               <input type="text" onInput={this.handleInput} />
             </label>
             <button type='submit'>Explore!</button>
           </form>
-          <section>
-              {nameData2}
+          <div>
+            {
+              this.state.showData &&
+              <Alert variant="danger">
+                <Alert.Heading>{this.state.errorMessage}</Alert.Heading>
+                  <p className="question2">
+                    Fill in another city?
+                  </p>
+              </Alert>
+            }
+          </div>
+          <section className="data1">
+              {
+              this.state.showData &&
+              <p key={`${nameName[0]}`}>{nameName[0]}</p>
+              }
             <ul>
-              {locDataDone2}
+              {
+                this.state.showData &&
+                <li key={`${nameLat[0]}`} className="bullets1">Latitude: {nameLat[0]}; Longitude: {nameLon[0]}</li>
+              }
             </ul>
 
-            {/* <Alert variant="danger">
-              <Alert.Heading>{this.state.errorMessage}</Alert.Heading>
-                <p>
-                  Aww yeah, you successfully read this important alert message. This
-                  example text is going to run a bit longer so that you can see how
-                  spacing within an alert works with this kind of content.
-                </p>
-                <hr />
-                <p className="mb-0">
-                  Whenever you need to, be sure to use margin utilities to keep things
-                  nice and tidy.
-                </p>
-            </Alert> */}
 
           </section>
-          <article>
-            <p>Location of map? Card?</p>
-            {console.log(this.state.mapData)}
-            {/* <img src={(this.state.mapData)} alt="testing">Test Location</img> */}
-            {imageDisplay}
+          <article className="img1">
+              {
+              this.state.showData &&
+              <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${nameLat[0]},${nameLon[0]}&zoom=9&size=400x400&format=jpeg`} alt="testing" />
+              }
           </article>
         </main>
       </>
@@ -111,6 +108,5 @@ class Main extends React.Component{
   };
 
 }
-
 
 export default Main;
