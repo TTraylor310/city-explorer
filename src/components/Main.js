@@ -42,7 +42,7 @@ class Main extends React.Component{
         error: false,
         errorMessage: '',
         showData: true,
-        weather: weatherData,
+        weather: weatherData.data,
       })
 
     }catch(error){
@@ -61,10 +61,15 @@ class Main extends React.Component{
     let nameLon = this.state.cityData.map (val => val.lon);
     console.log(this.state.weather);
 
-    let weatherD = this.state.weather.map( val => {
-      return <p>{val.description}</p>
-    });
+    // let weatherD = this.state.weather.map( val => {
+    //   return <p>{val.date}</p>
+    // });
 
+    // let weatherDDD = this.state.weather.map( val => {
+    //   for (let i=0; i<= val.length; i++){
+    //     return <p>{val[i].date} </p>
+    //   }
+    // });
 
 
     return(
@@ -102,10 +107,10 @@ class Main extends React.Component{
                 <li key={`${nameLat[0]}`} className="bullets1">Latitude: {nameLat[0]}; Longitude: {nameLon[0]}</li>
               }
             </ul>
-            {
+            {/* {
               this.state.showData &&
-              {weatherD}
-            }
+              {weatherDDD}
+            } */}
           </section>
           <article className="img1">
               {
