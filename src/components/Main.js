@@ -15,9 +15,9 @@ class Main extends React.Component{
       error: false,
       errorMessage: '',
       showData: false,
+      weather: [],
     }
   }
-
 
 
   handleInput = (e) => {
@@ -34,13 +34,15 @@ class Main extends React.Component{
     try{
       let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
       let cityData = await axios.get(cityurl);
+      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+      let weatherData = await axios.get(weatherURL);
 
       this.setState({
         cityData: cityData.data,
-        // mapData: mapURL,
         error: false,
         errorMessage: '',
         showData: true,
+        weather: weatherData,
       })
 
     }catch(error){
@@ -57,6 +59,13 @@ class Main extends React.Component{
     let nameName = this.state.cityData.map (val => val.display_name);
     let nameLat = this.state.cityData.map (val => val.lat);
     let nameLon = this.state.cityData.map (val => val.lon);
+    console.log(this.state.weather);
+
+    let weatherD = this.state.weather.map( val => {
+      return <p>{val.description}</p>
+    });
+
+
 
     return(
       <>
@@ -93,8 +102,10 @@ class Main extends React.Component{
                 <li key={`${nameLat[0]}`} className="bullets1">Latitude: {nameLat[0]}; Longitude: {nameLon[0]}</li>
               }
             </ul>
-
-
+            {
+              this.state.showData &&
+              {weatherD}
+            }
           </section>
           <article className="img1">
               {
