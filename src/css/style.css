@@ -1,0 +1,57 @@
+.app{
+  background-color: #6FCFE4;
+}
+
+.header1{
+  /* background-color:bisque; */
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  word-spacing: 1.2px;
+}
+
+.main1{
+  background-color: rgb(217, 226, 90);
+  border: 10px solid 
+}
+
+.question1{
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size:2em;
+  text-indent: 15%;
+}
+
+.question2{
+  text-indent: 15%;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size:1em;
+}
+
+.form1{
+  padding-top: 1px;
+  text-indent: 20%;
+}
+
+.data1{
+  text-indent: 20%;
+  font-family: Georgia, serif;
+  font-size:1em;
+}
+
+.bullets1{
+  list-style-type: none;
+}
+
+.img1{
+  text-indent: 15%;
+}
+
+.footer1{
+  text-align: center;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 26px;
+  letter-spacing: -0.8px;
+  word-spacing: 0.8px;
+  font-variant: small-caps;
+}
