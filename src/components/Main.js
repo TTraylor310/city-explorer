@@ -62,11 +62,13 @@ class Main extends React.Component{
     let nameName = this.state.cityData.map (val => val.display_name);
     let nameLat = this.state.cityData.map (val => val.lat);
     let nameLon = this.state.cityData.map (val => val.lon);
-    console.log(this.state.weather);
+    console.log(this.state);
     let wetSunrise = this.state.weather.map (val => val.sunrise);
     let wetSunset = this.state.weather.map (val => val.sunset);
     let wetApp_temp =((this.state.weather.map (val => val.App_temp))*(9/5))+32;
     let wetDescription = this.state.weather.map (val => val.Description);
+    
+
 
     return(
       <>
