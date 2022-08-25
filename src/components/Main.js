@@ -16,7 +16,6 @@ class Main extends React.Component{
       errorMessage: '',
       showData: false,
       weather: [],
-      // xweather: [],
     }
   }
 
@@ -36,24 +35,18 @@ class Main extends React.Component{
       let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
       let cityData = await axios.get(cityurl);
 
-      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?${this.state.city}`;
-      // let weatherData = await axios.get(weatherURL);
-
       this.setState({
         cityData: cityData.data,
         error: false,
         errorMessage: '',
         showData: true,
-        // weather: weatherData.data,
       })
-      
+
       const url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
       const response = await axios.get(url);
       this.setState({
         weather: response.data,
       })
-
-
 
     }catch(error){
       this.setState({
@@ -70,6 +63,10 @@ class Main extends React.Component{
     let nameLat = this.state.cityData.map (val => val.lat);
     let nameLon = this.state.cityData.map (val => val.lon);
     console.log(this.state.weather);
+    let wetSunrise = this.state.weather.map (val => val.sunrise);
+    let wetSunset = this.state.weather.map (val => val.sunset);
+    let wetApp_temp =((this.state.weather.map (val => val.App_temp))*(9/5))+32;
+    let wetDescription = this.state.weather.map (val => val.Description);
 
     return(
       <>
@@ -95,7 +92,7 @@ class Main extends React.Component{
               </Alert>
             }
           </div>
-          <section className="data1">
+          <section className="data1"> {/* City,Lat, Lon shown */}
               {
               this.state.showData &&
               <p key={`${nameName[0]}`}>{nameName[0]}</p>
@@ -106,11 +103,14 @@ class Main extends React.Component{
                 <li key={`${nameLat[0]}`} className="bullets1">Latitude: {nameLat[0]}; Longitude: {nameLon[0]}</li>
               }
             </ul>
+            {/* HERE IS WHERE I"M PUTTING NEW DATA */}
             {
               this.state.showData &&
-              this.state.weather.map(val => {
-                return <p key={val.date}>{val.date}</p>
-              })
+              <p key={`${this.state.weather.app_temp}`} className="temp1">Sunrise: {wetSunrise}; Sunset: {wetSunset}</p>
+            }
+            {
+              this.state.showData &&
+              <p key={`${this.state.city}`} className="temp1">Temperature: {wetApp_temp}, {wetDescription}</p>
             }
           </section>
           <article className="img1">
