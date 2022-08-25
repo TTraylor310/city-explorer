@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import '../css/style.css';
+import Movie from './Movie.js';
 
 
 class Main extends React.Component{
@@ -16,6 +17,9 @@ class Main extends React.Component{
       errorMessage: '',
       showData: false,
       weather: [],
+      moviesData: [],
+      key1: 34134,
+      key2: 13245,
     }
   }
 
@@ -31,21 +35,22 @@ class Main extends React.Component{
     e.preventDefault();
 
     try{
-      let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
-      let cityData = await axios.get(cityurl);
-      // const weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+      let cityURL = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
+      let cityData = await axios.get(cityURL);
 
-      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
-      const response = await axios.get(url);
+      const weatherURL = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
+      const weatherData = await axios.get(weatherURL);
 
-// ?lat=${cityData.data[0].lat}&long${cityData.data[0].lon}
+      const moviesURL = `${process.env.REACT_APP_SERVER}/movies?city=${this.state.city}`;
+      const moviesData = await axios.get(moviesURL);
 
       this.setState({
         cityData: cityData.data,
         showData: true,
-        weather: response.data,
+        weather: weatherData.data,
         lat: cityData.data[0].lat,
         lon: cityData.data[0].lon,
+        moviesData: moviesData.data,
       })
 
     }catch(error){
@@ -59,16 +64,15 @@ class Main extends React.Component{
 
 
   render () {
+    console.log(this.state.moviesData);
+
     let nameName = this.state.cityData.map (val => val.display_name);
-    let nameLat = this.state.cityData.map (val => val.lat);
-    let nameLon = this.state.cityData.map (val => val.lon);
-    console.log(this.state);
     let wetSunrise = this.state.weather.map (val => val.sunrise);
     let wetSunset = this.state.weather.map (val => val.sunset);
-    // let wetApp_temp =((this.state.weather.map (val => val.App_temp))*(9/5))+32;
-    // let wetDescription = this.state.weather.map (val => val.Description);
-    
-
+    console.log(this.state.weather);
+    let wetApp_temp = this.state.weather.map (val => val.app_temp);
+    let wetDescription = this.state.weather.map (val => val.description);
+    //  console.log(this.state.moviesData[0].title);
 
     return(
       <>
@@ -97,12 +101,12 @@ class Main extends React.Component{
           <section className="data1"> {/* City,Lat, Lon shown */}
               {
               this.state.showData &&
-              <p key={`${nameName[0]}`}>{nameName[0]}</p>
+              <p key={`${this.state.key1}`}>{nameName[0]}</p>
               }
             <ul>
               {
                 this.state.showData &&
-                <li key={`${nameLat[0]}`} className="bullets1">Latitude: {nameLat[0]}; Longitude: {nameLon[0]}</li>
+                <li key={`${this.state.lat}`} className="bullets1">Latitude: {this.state.lat}; Longitude: {this.state.lon}</li>
               }
             </ul>
             {/* HERE IS WHERE I"M PUTTING NEW DATA */}
@@ -110,17 +114,30 @@ class Main extends React.Component{
               this.state.showData &&
               <p key={`${this.state.weather.app_temp}`} className="temp1">Sunrise: {wetSunrise}; Sunset: {wetSunset}</p>
             }
-            {/* {
+            {
               this.state.showData &&
-              <p key={`${this.state.city}`} className="temp1">Temperature: {wetApp_temp}, {wetDescription}</p>
-            } */}
+              <p key={`${this.state.key2}`} className="temp3">Temperature: {wetApp_temp}, {wetDescription}</p>
+            }
           </section>
           <article className="img1">
               {
               this.state.showData &&
-              <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${nameLat[0]},${nameLon[0]}&zoom=9&size=400x400&format=jpeg`} alt="testing" />
+              <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.lat},${this.state.lon}&zoom=9&size=400x400&format=jpeg`} alt="testing" />
               }
           </article>
+          
+            <section>
+              <h3>Here are some movies you might enjoy based on the location: {this.state.city}</h3>
+              <ul>
+              
+              { 
+                  this.state.showData &&
+                  <Movie datas={this.state.moviesData} />
+              }
+              
+              </ul>
+            </section>
+          
         </main>
       </>
     )
