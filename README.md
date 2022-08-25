@@ -26,6 +26,8 @@ Also the website will return a few days worth of weather.
   * ![Picture](./public/img/lab06_sketch.png)
 * Lab07 - Armen
   * ![Picture](./public/img/lab07_sketch.png)
+* Lab07 - Adrian
+  * ![Picture](./public/img/lab08_sketch.png)
 
 Name of feature: City Name, Long and Lat data
 Estimate of time needed to complete: 60 min

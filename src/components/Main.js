@@ -16,6 +16,7 @@ class Main extends React.Component{
       errorMessage: '',
       showData: false,
       weather: [],
+      // xweather: [],
     }
   }
 
@@ -34,43 +35,41 @@ class Main extends React.Component{
     try{
       let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
       let cityData = await axios.get(cityurl);
-      let weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
-      let weatherData = await axios.get(weatherURL);
+
+      // let weatherURL = `${process.env.REACT_APP_SERVER}/weather?${this.state.city}`;
+      // let weatherData = await axios.get(weatherURL);
 
       this.setState({
         cityData: cityData.data,
         error: false,
         errorMessage: '',
         showData: true,
-        weather: weatherData.data,
+        // weather: weatherData.data,
       })
+      
+      const url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+      const response = await axios.get(url);
+      this.setState({
+        weather: response.data,
+      })
+
+
 
     }catch(error){
       this.setState({
         error: true,
         errorMessage: `Error: Unable to geocode.`
       })
-
     }
   }
   
-  
+
+
   render () {
     let nameName = this.state.cityData.map (val => val.display_name);
     let nameLat = this.state.cityData.map (val => val.lat);
     let nameLon = this.state.cityData.map (val => val.lon);
     console.log(this.state.weather);
-
-    // let weatherD = this.state.weather.map( val => {
-    //   return <p>{val.date}</p>
-    // });
-
-    // let weatherDDD = this.state.weather.map( val => {
-    //   for (let i=0; i<= val.length; i++){
-    //     return <p>{val[i].date} </p>
-    //   }
-    // });
-
 
     return(
       <>
@@ -107,10 +106,12 @@ class Main extends React.Component{
                 <li key={`${nameLat[0]}`} className="bullets1">Latitude: {nameLat[0]}; Longitude: {nameLon[0]}</li>
               }
             </ul>
-            {/* {
+            {
               this.state.showData &&
-              {weatherDDD}
-            } */}
+              this.state.weather.map(val => {
+                return <p key={val.date}>{val.date}</p>
+              })
+            }
           </section>
           <article className="img1">
               {
