@@ -19,7 +19,6 @@ class Main extends React.Component{
     }
   }
 
-
   handleInput = (e) => {
     e.preventDefault();
     this.setState ({
@@ -34,18 +33,19 @@ class Main extends React.Component{
     try{
       let cityurl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`;
       let cityData = await axios.get(cityurl);
+      // const weatherURL = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+
+      const url = `${process.env.REACT_APP_SERVER}/weather?lat=${cityData.data[0].lat}&lon=${cityData.data[0].lon}`;
+      const response = await axios.get(url);
+
+// ?lat=${cityData.data[0].lat}&long${cityData.data[0].lon}
 
       this.setState({
         cityData: cityData.data,
-        error: false,
-        errorMessage: '',
         showData: true,
-      })
-
-      const url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
-      const response = await axios.get(url);
-      this.setState({
         weather: response.data,
+        lat: cityData.data[0].lat,
+        lon: cityData.data[0].lon,
       })
 
     }catch(error){
@@ -65,8 +65,8 @@ class Main extends React.Component{
     console.log(this.state);
     let wetSunrise = this.state.weather.map (val => val.sunrise);
     let wetSunset = this.state.weather.map (val => val.sunset);
-    let wetApp_temp =((this.state.weather.map (val => val.App_temp))*(9/5))+32;
-    let wetDescription = this.state.weather.map (val => val.Description);
+    // let wetApp_temp =((this.state.weather.map (val => val.App_temp))*(9/5))+32;
+    // let wetDescription = this.state.weather.map (val => val.Description);
     
 
 
@@ -110,10 +110,10 @@ class Main extends React.Component{
               this.state.showData &&
               <p key={`${this.state.weather.app_temp}`} className="temp1">Sunrise: {wetSunrise}; Sunset: {wetSunset}</p>
             }
-            {
+            {/* {
               this.state.showData &&
               <p key={`${this.state.city}`} className="temp1">Temperature: {wetApp_temp}, {wetDescription}</p>
-            }
+            } */}
           </section>
           <article className="img1">
               {
