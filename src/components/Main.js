@@ -3,6 +3,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import '../css/style.css';
 import Movie from './Movie.js';
+import Weather from './Weather.js';
 
 
 class Main extends React.Component{
@@ -65,14 +66,13 @@ class Main extends React.Component{
 
   render () {
     console.log(this.state.moviesData);
-
     let nameName = this.state.cityData.map (val => val.display_name);
-    let wetSunrise = this.state.weather.map (val => val.sunrise);
-    let wetSunset = this.state.weather.map (val => val.sunset);
-    console.log(this.state.weather);
-    let wetApp_temp = this.state.weather.map (val => val.app_temp);
-    let wetDescription = this.state.weather.map (val => val.description);
-    //  console.log(this.state.moviesData[0].title);
+
+    // line 121 for display for <Weather /> need key and info
+    // let wetSunrise = this.state.weather.map (val => val.sunrise);
+    // let wetSunset = this.state.weather.map (val => val.sunset);
+    // let wetApp_temp = this.state.weather.map (val => val.app_temp);
+    // let wetDescription = this.state.weather.map (val => val.description);
 
     return(
       <>
@@ -109,15 +109,18 @@ class Main extends React.Component{
                 <li key={`${this.state.lat}`} className="bullets1">Latitude: {this.state.lat}; Longitude: {this.state.lon}</li>
               }
             </ul>
-            {/* HERE IS WHERE I"M PUTTING NEW DATA */}
-            {
+            {/* {
               this.state.showData &&
               <p key={`${this.state.weather.app_temp}`} className="temp1">Sunrise: {wetSunrise}; Sunset: {wetSunset}</p>
             }
             {
               this.state.showData &&
               <p key={`${this.state.key2}`} className="temp3">Temperature: {wetApp_temp}, {wetDescription}</p>
-            }
+            } */}
+            {/* { 
+              this.state.showData &&
+              <Weather datasW={this.state.weather} />
+            } */}
           </section>
           <article className="img1">
               {
@@ -127,7 +130,10 @@ class Main extends React.Component{
           </article>
           
             <section>
+              {
+              this.state.showData &&
               <h3>Here are some movies you might enjoy based on the location: {this.state.city}</h3>
+              }
               <ul>
               
               { 
