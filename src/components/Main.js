@@ -3,7 +3,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import '../css/style.css';
 import Movie from './Movie.js';
-
+// import Weather from './Weather.js';
 
 class Main extends React.Component{
 
