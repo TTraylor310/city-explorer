@@ -64,12 +64,12 @@ class Main extends React.Component{
 
 
   render () {
-    console.log(this.state.moviesData);
+    // console.log(this.state.moviesData);
 
     let nameName = this.state.cityData.map (val => val.display_name);
     let wetSunrise = this.state.weather.map (val => val.sunrise);
     let wetSunset = this.state.weather.map (val => val.sunset);
-    console.log(this.state.weather);
+    // console.log(this.state.weather);
     let wetApp_temp = this.state.weather.map (val => val.app_temp);
     let wetDescription = this.state.weather.map (val => val.description);
     //  console.log(this.state.moviesData[0].title);
