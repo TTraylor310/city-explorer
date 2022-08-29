@@ -26,8 +26,9 @@ Also the website will return a few days worth of weather.
   * ![Picture](./public/img/lab06_sketch.png)
 * Lab07 - Armen
   * ![Picture](./public/img/lab07_sketch.png)
-* Lab07 - Adrian
+* Lab08 - Adrian
   * ![Picture](./public/img/lab08_sketch.png)
+* Lab09 - 
 
 Name of feature: City Name, Long and Lat data
 Estimate of time needed to complete: 60 min
@@ -47,11 +48,11 @@ Start time: 1500
 Finish time: 2000
 Actual time needed to complete: 5 hours
 
-<!-- Name of feature: 
-Estimate of time needed to complete: 
-Start time: 
-Finish time: 
-Actual time needed to complete:  -->
+Name of feature: Modulaize Front and Back
+Estimate of time needed to complete: 3 hrs
+Start time: 1200
+Finish time: 1630
+Actual time needed to complete: 4.5 hr
 
 <!-- Name of feature: 
 Estimate of time needed to complete: 
